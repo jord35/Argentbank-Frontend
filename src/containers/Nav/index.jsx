@@ -1,26 +1,59 @@
 import "./style.scss";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { selectToken, selectUserName } from "../../app/selectors";
+import { clearCredentials } from "../../features/auth/authSlice";
 
 export default function Nav() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const token = useSelector(selectToken);
+    const userName = useSelector(selectUserName);
+
+    const handleLogout = () => {
+        // Nettoyage du store + sessionStorage
+        dispatch(clearCredentials());
+        navigate("/sign-in");
+    };
+
     return (
         <nav className="main-nav">
-            <a className="main-nav-logo" href="./index.html">
+            <Link className="main-nav-logo" to="/">
                 <img
                     className="main-nav-logo-image"
-                    src="./public/images/argentBankLogo.png"
+                    src="/images/argentBankLogo.png"
                     alt="Argent Bank Logo"
                 />
                 <h1 className="sr-only">Argent Bank</h1>
-            </a>
+            </Link>
+
             <div>
-                <a className="main-nav-item" href="./user.html">
-                    <i className="fa fa-user-circle"></i>
-                    Tony
-                </a>
-                <a className="main-nav-item" href="./index.html">
-                    <i className="fa fa-sign-out"></i>
-                    Sign Out
-                </a>
+                {token && userName ? (
+                    <>
+                        <Link className="main-nav-item" to="/user">
+                            <i className="fa fa-user-circle"></i>
+                            {userName}
+                        </Link>
+                        <button
+                            className=" main-nav-item logout-btn"
+                            onClick={handleLogout}
+                        >
+
+
+                            Sign Out
+                        </button>
+                    </>
+                ) : (
+
+                    <Link className="main-nav-item" to="/sign-in">
+                        <i className="fa fa-user-circle"></i>
+                        Sign In
+                    </Link>
+                )}
             </div>
         </nav>
     );
 }
+
+
