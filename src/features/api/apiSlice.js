@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
 export const apiSlice = createApi({
     reducerPath: "api",
     baseQuery: fetchBaseQuery({
@@ -36,6 +35,15 @@ export const apiSlice = createApi({
         getProfile: builder.query({
             query: () => "/user/profile",
         }),
+
+        // UPDATE USERNAME (requiert token)
+        updateUsername: builder.mutation({
+            query: ({ userName }) => ({
+                url: "/user/profile",
+                method: "PUT",
+                body: { userName },
+            }),
+        }),
     }),
 });
 
@@ -44,5 +52,5 @@ export const {
     useSignupMutation,
     useGetProfileQuery,
     useLazyGetProfileQuery,
+    useUpdateUsernameMutation,
 } = apiSlice;
-
