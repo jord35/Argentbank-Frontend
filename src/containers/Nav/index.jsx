@@ -22,7 +22,7 @@ export default function Nav() {
             <Link className="main-nav-logo" to="/">
                 <img
                     className="main-nav-logo-image"
-                    src="/images/argentBankLogo.png"
+                    src="/images/argentBankLogo.webp"
                     alt="Argent Bank Logo"
                 />
                 <h1 className="sr-only">Argent Bank</h1>

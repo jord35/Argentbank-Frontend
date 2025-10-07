@@ -1,7 +1,7 @@
 import "./style.scss";
 
 
-export default function FeatureItem({ iconSrc, iconAlt, title, children }) {
+export default function ServiceItem({ iconSrc, iconAlt, title, children }) {
   return (
     <div className="feature">
       <img src={iconSrc} alt={iconAlt} className="feature-icon" />

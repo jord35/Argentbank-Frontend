@@ -1,6 +1,6 @@
 import Nav from "../../containers/Nav";
 import Footer from "../../containers/Footer";
-import Features from "../../containers/Features";
+import Services from "../../containers/Services";
 
 import "./style.scss";
 
@@ -25,7 +25,7 @@ const HomePage = () => {
           </section>
         </div>
 
-        <Features />
+        <Services />
       </main>
 
       <Footer />
