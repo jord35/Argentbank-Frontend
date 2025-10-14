@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const token = sessionStorage.getItem("token");
+const user = JSON.parse(sessionStorage.getItem("user"));
 
 const initialState = {
     token: token || null,
-    user: null,
+    user: user || null,
     isLoggedIn: !!token,
 };
 
@@ -20,6 +21,7 @@ const authSlice = createSlice({
 
             // sauvegarde en sessionStorage
             sessionStorage.setItem("token", token);
+            sessionStorage.setItem("user", JSON.stringify(user));
         },
         clearCredentials: (state) => {
             state.token = null;
@@ -28,6 +30,7 @@ const authSlice = createSlice({
 
             // nettoyage du storage
             sessionStorage.removeItem("token");
+            sessionStorage.removeItem("user");
         },
     },
 });

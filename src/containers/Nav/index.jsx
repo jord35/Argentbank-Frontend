@@ -32,22 +32,24 @@ export default function Nav() {
                 {token && userName ? (
                     <>
                         <Link className="main-nav-item" to="/user">
-                            <i className="fa fa-user-circle"></i>
-                            {userName}
+                            <i className="fa fa-user-circle"></i>{' '}
+                            {userName}{' '}
                         </Link>
+
                         <button
                             className=" main-nav-item logout-btn"
                             onClick={handleLogout}
                         >
+                            <i className="fa fa-sign-out"></i>
 
 
-                            Sign Out
+                            {' '} Sign Out
                         </button>
                     </>
                 ) : (
 
                     <Link className="main-nav-item" to="/sign-in">
-                        <i className="fa fa-user-circle"></i>
+                        <i className="fa fa-user-circle"></i>{' '}
                         Sign In
                     </Link>
                 )}
