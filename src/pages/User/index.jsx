@@ -7,6 +7,7 @@ import Modal from "../../components/Modal";
 import Nav from "../../containers/Nav";
 import Accounts from "../../containers/Accounts";
 import Footer from "../../containers/Footer";
+import { selectPersistent } from "../../features/storage/storageSlice";
 
 import "./style.scss";
 
@@ -14,6 +15,7 @@ const User = () => {
   const user = useSelector(selectUser);
   const userName = useSelector(selectUserName);
   const token = useSelector(selectToken);
+  const persistent = useSelector(selectPersistent);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newUserName, setNewUserName] = useState("");
@@ -24,13 +26,12 @@ const User = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-
       const result = await updateUsername({
         userName: newUserName,
       }).unwrap();
 
 
-      dispatch(setCredentials({ token, user: result.body }));
+      dispatch(setCredentials({ token, user: result.body, persistent }));
 
       setIsModalOpen(false);
       setNewUserName("");
@@ -38,7 +39,6 @@ const User = () => {
       console.error("Erreur lors de la mise à jour du username :", err);
     }
   };
-
 
   return (
     <>
@@ -50,7 +50,7 @@ const User = () => {
           <h1>
             Welcome back
             <br />
-            {userName + "!" || "Loading..."}
+            {userName ? `${userName}!` : "Loading..."}
           </h1>
           <button className="edit-button" onClick={() => setIsModalOpen(true)}>
             Edit Name

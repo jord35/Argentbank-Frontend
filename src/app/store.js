@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import { apiSlice } from "../features/api/apiSlice";
 import mockapiReducer from "../features/api/mockapiSlice";
+import storageReducer from "../features/storage/storageSlice"
 
 // test
 const logTokenMiddleware = (store) => (next) => (action) => {
@@ -17,6 +18,7 @@ const store = configureStore({
         auth: authReducer,
         [apiSlice.reducerPath]: apiSlice.reducer,
         mockapi: mockapiReducer,
+        storage: storageReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(apiSlice.middleware, logTokenMiddleware),

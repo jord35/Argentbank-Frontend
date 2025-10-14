@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLoginMutation, useLazyGetProfileQuery } from "../../features/api/apiSlice";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../features/auth/authSlice";
@@ -9,6 +10,7 @@ import Footer from "../../containers/Footer";
 import "./style.scss";
 
 const SignIn = () => {
+  const [remember, setRemember] = useState(false); // checkbox
   const [login, { isLoading, error }] = useLoginMutation();
   const [getProfile] = useLazyGetProfileQuery();
   const dispatch = useDispatch();
@@ -23,14 +25,14 @@ const SignIn = () => {
     try {
       const result = await login({ email, password }).unwrap();
       const token = result.body.token;
-      console.log("Token reçu de l'API :", result.body.token);
 
-      dispatch(setCredentials({ token, user: null }));
-      sessionStorage.setItem("token", token);
+      const persistent = remember; // true si checkbox cochée
+
+
+      dispatch(setCredentials({ token, user: null, persistent }));
 
       const profile = await getProfile().unwrap();
-      dispatch(setCredentials({ token, user: profile.body }));
-
+      dispatch(setCredentials({ token, user: profile.body, persistent }));
 
       navigate("/user");
     } catch (err) {
@@ -43,7 +45,6 @@ const SignIn = () => {
       <header>
         <Nav />
       </header>
-
       <main className="main bg-dark">
         <section className="sign-in-content">
           <i className="fa fa-user-circle sign-in-icon"></i>
@@ -58,7 +59,12 @@ const SignIn = () => {
               <input type="password" id="password" name="password" required />
             </div>
             <div className="input-remember">
-              <input type="checkbox" id="remember-me" />
+              <input
+                type="checkbox"
+                id="remember-me"
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
+              />
               <label htmlFor="remember-me">Remember me</label>
             </div>
             <button type="submit" className="sign-in-button" disabled={isLoading}>
