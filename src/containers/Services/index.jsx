@@ -5,8 +5,9 @@ export default function Features() {
     return (
         <section className="features">
             <h2 className="sr-only">Features</h2>
+
             <ServiceItem
-                iconSrc="./public/images/icon-chat.png"
+                iconSrc="/images/icon-chat.webp"
                 iconAlt="Chat Icon"
                 title="You are our #1 priority"
             >
@@ -17,7 +18,7 @@ export default function Features() {
             </ServiceItem>
 
             <ServiceItem
-                iconSrc="./public/images/icon-money.png"
+                iconSrc="/images/icon-money.webp"
                 iconAlt="Money Icon"
                 title="More savings means higher rates"
             >
@@ -27,7 +28,7 @@ export default function Features() {
             </ServiceItem>
 
             <ServiceItem
-                iconSrc="./public/images/icon-security.png"
+                iconSrc="/images/icon-security.webp"
                 iconAlt="Security Icon"
                 title="Security you can trust"
             >
