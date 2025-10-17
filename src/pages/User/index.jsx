@@ -1,13 +1,15 @@
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser, selectUserName, selectToken } from "../../app/selectors";
 import { useUpdateUsernameMutation } from "../../features/api/apiSlice";
 import { setCredentials } from "../../features/auth/authSlice";
-import { useState } from "react";
 import Modal from "../../components/Modal";
 import Nav from "../../containers/Nav";
 import Accounts from "../../containers/Accounts";
 import Footer from "../../containers/Footer";
 import { selectPersistent } from "../../features/storage/storageSlice";
+
+import { useNavigate } from "react-router-dom";
 
 import "./style.scss";
 
@@ -22,6 +24,13 @@ const User = () => {
 
   const dispatch = useDispatch();
   const [updateUsername] = useUpdateUsernameMutation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/sign-in");
+    }
+  }, [token, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
